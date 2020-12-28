@@ -1,4 +1,4 @@
-package com.fitow2512.basketinfo.alexa;
+package com.fitow2512.basketinfo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

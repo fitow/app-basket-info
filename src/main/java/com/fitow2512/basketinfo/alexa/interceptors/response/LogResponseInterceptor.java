@@ -1,18 +1,19 @@
 package com.fitow2512.basketinfo.alexa.interceptors.response;
 
+import java.util.Optional;
+
 import com.amazon.ask.dispatcher.request.handler.HandlerInput;
 import com.amazon.ask.dispatcher.request.interceptor.ResponseInterceptor;
 import com.amazon.ask.model.Response;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
-import java.util.Optional;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class LogResponseInterceptor implements ResponseInterceptor {
 
-    static final Logger logger = LogManager.getLogger(LogResponseInterceptor.class);
+    //static final Logger logger = LogManager.getLogger(LogResponseInterceptor.class);
     @Override
     public void process(HandlerInput input, Optional<Response> output) {
-        logger.info(output.toString());
+        log.info(output.toString());
     }
 }
