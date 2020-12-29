@@ -8,16 +8,16 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jsoup.Connection.Response;
-import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fitow2512.basketinfo.services.BasketDataService;
 import com.fitow2512.basketinfo.services.dtos.Article;
 import com.fitow2512.basketinfo.services.dtos.Articles;
+import com.fitow2512.basketinfo.services.utils.JsoupConnection;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -25,18 +25,19 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class BasketDataServiceImpl implements BasketDataService {
 	
-	private static final String URL_PIRATAS_BASKET = "https://piratasdelbasket.net/";
-	
+	private static final String URL_PIRATAS_BASKET = "https://piratasdelbasket.net/";	
 	private static final String URL_PIRATAS_BASKET_TRANSFERS = "https://piratasdelbasket.net/category/rumores-fichajes/";
 
+	@Autowired
+	private JsoupConnection jsoupConnection;
 
 	@Override
 	public Articles getNews() {
 
 		List<Article> listArticles = new ArrayList<Article>();
-    	int statusConnectionCode = getStatusConnectionCode(URL_PIRATAS_BASKET);
+    	int statusConnectionCode = jsoupConnection.getStatusConnectionCode(URL_PIRATAS_BASKET);
         if (statusConnectionCode == 200) {
-            Document document = getHtmlDocument(URL_PIRATAS_BASKET);
+            Document document = jsoupConnection.getHtmlDocument(URL_PIRATAS_BASKET);
             if(document!=null) {
             	Elements elements = document.getElementsByTag("article");
             	if(elements.size()>0) {
@@ -63,9 +64,9 @@ public class BasketDataServiceImpl implements BasketDataService {
 	public Articles getTransfers() {
 
 		List<Article> listArticles = new ArrayList<Article>();
-    	int statusConnectionCode = getStatusConnectionCode(URL_PIRATAS_BASKET_TRANSFERS);
+    	int statusConnectionCode = jsoupConnection.getStatusConnectionCode(URL_PIRATAS_BASKET_TRANSFERS);
         if (statusConnectionCode == 200) {
-            Document document = getHtmlDocument(URL_PIRATAS_BASKET_TRANSFERS);
+            Document document = jsoupConnection.getHtmlDocument(URL_PIRATAS_BASKET_TRANSFERS);
             if(document!=null) {
             	Elements elements = document.getElementsByTag("article");
             	if(elements.size()>0) {
@@ -118,27 +119,7 @@ public class BasketDataServiceImpl implements BasketDataService {
  			return null;
 		}
 	}
-	
-	private int getStatusConnectionCode(String url) {
-		try {
-			Response response = Jsoup.connect(url).userAgent("Mozilla/5.0").timeout(100000).ignoreHttpErrors(true).execute();
-			return response.statusCode();
-		} catch (Exception ex) {
-			log.error("Exception when get status code: " + ex.getMessage());
-			return 500;
-		}		
-	}
-	
-	
-	private Document getHtmlDocument(String url) {
-		try {
-			return Jsoup.connect(url).userAgent("Mozilla/5.0").timeout(100000).get();
-	    } catch (Exception ex) {
-			log.error("Exception when get web HTML" + ex.getMessage());
-			return null;
-	    }
-	}
-	
+
 	private ZonedDateTime getTimeStamp() {
 		return ZonedDateTime.of(LocalDateTime.now(), ZoneId.of("Europe/Madrid"));		
 	}

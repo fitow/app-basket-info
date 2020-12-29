@@ -8,7 +8,6 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class LogRequestInterceptor implements RequestInterceptor {
 
-    //static final Logger logger = LogManager.getLogger(LogRequestInterceptor.class);
     @Override
     public void process(HandlerInput input) {
     	log.info(input.getRequestEnvelope().toString());

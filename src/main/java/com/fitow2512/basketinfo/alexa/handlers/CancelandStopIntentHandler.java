@@ -17,10 +17,11 @@ public class CancelandStopIntentHandler implements RequestHandler {
 
     @Override
     public Optional<Response> handle(HandlerInput input) {
-        String speechText =  LocalizationManager.getInstance().getMessage("GOODBYE_MSG");;
+    	String titleText = LocalizationManager.getInstance().getMessage("GOODBYE_TITLE");
+        String speechText =  LocalizationManager.getInstance().getMessage("GOODBYE_MSG");
         return input.getResponseBuilder()
                 .withSpeech(speechText)
-                .withSimpleCard("HelloWorld", speechText)
+                .withSimpleCard(titleText, speechText)
                 .build();
     }
 }

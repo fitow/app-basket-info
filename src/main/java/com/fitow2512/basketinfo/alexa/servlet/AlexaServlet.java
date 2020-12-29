@@ -8,17 +8,20 @@ import com.fitow2512.basketinfo.alexa.interceptors.request.LocalizationRequestIn
 import com.fitow2512.basketinfo.alexa.interceptors.request.LogRequestInterceptor;
 import com.fitow2512.basketinfo.alexa.interceptors.response.LogResponseInterceptor;
 
+@SuppressWarnings("serial")
 public class AlexaServlet extends SkillServlet {
 
     public AlexaServlet() {
         super(getSkill());
     }
 
-    private static Skill getSkill() {
+    @SuppressWarnings("unchecked")
+	private static Skill getSkill() {
         return Skills.standard()
                 .addRequestHandlers(
                         new CancelandStopIntentHandler(),
                         new HelloWorldIntentHandler(),
+                        new NewsIntentHandler(),
                         new HelpIntentHandler(),
                         new LaunchRequestHandler(),
                         new SessionEndedRequestHandler(),

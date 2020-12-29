@@ -19,10 +19,11 @@ public class LaunchRequestHandler implements RequestHandler {
 
     @Override
     public Optional<Response> handle(HandlerInput input) {
-        String speechText = LocalizationManager.getInstance().getMessage("WELCOME_MSG");
+    	String titleText = LocalizationManager.getInstance().getMessage("WELCOME_TITLE");
+    	String speechText = LocalizationManager.getInstance().getMessage("WELCOME_MSG");
         return input.getResponseBuilder()
                 .withSpeech(speechText)
-                .withSimpleCard("HelloWorld", speechText)
+                .withSimpleCard(titleText, speechText)
                 .withReprompt(speechText)
                 .build();
     }

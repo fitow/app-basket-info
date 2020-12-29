@@ -18,10 +18,11 @@ public class HelloWorldIntentHandler implements RequestHandler {
 
     @Override
     public Optional<Response> handle(HandlerInput input) {
-        String speechText = LocalizationManager.getInstance().getMessage("HELLO_MSG");;
+    	String titleText = LocalizationManager.getInstance().getMessage("HELLO_TITLE");
+        String speechText = LocalizationManager.getInstance().getMessage("HELLO_MSG");
         return input.getResponseBuilder()
                 .withSpeech(speechText)
-                .withSimpleCard("HelloWorld", speechText)
+                .withSimpleCard(titleText, speechText)
                 .build();
     }
 

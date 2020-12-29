@@ -11,7 +11,6 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class LogResponseInterceptor implements ResponseInterceptor {
 
-    //static final Logger logger = LogManager.getLogger(LogResponseInterceptor.class);
     @Override
     public void process(HandlerInput input, Optional<Response> output) {
         log.info(output.toString());

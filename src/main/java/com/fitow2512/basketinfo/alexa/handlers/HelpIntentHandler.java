@@ -18,10 +18,11 @@ public class HelpIntentHandler implements RequestHandler {
 
     @Override
     public Optional<Response> handle(HandlerInput input) {
+    	String titleText = LocalizationManager.getInstance().getMessage("HELP_TITLE");
         String speechText = LocalizationManager.getInstance().getMessage("HELP_MSG");
         return input.getResponseBuilder()
                 .withSpeech(speechText)
-                .withSimpleCard("HelloWorld", speechText)
+                .withSimpleCard(titleText, speechText)
                 .withReprompt(speechText)
                 .build();
     }
