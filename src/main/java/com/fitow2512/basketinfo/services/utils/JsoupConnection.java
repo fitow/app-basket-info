@@ -2,15 +2,13 @@ package com.fitow2512.basketinfo.services.utils;
 
 import org.jsoup.Connection.Response;
 import org.jsoup.nodes.Document;
-import org.springframework.stereotype.Component;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@Component
 public class JsoupConnection {
 
-	public int getStatusConnectionCode(String url) {
+	public static int getStatusConnectionCode(String url) {
 		try {
 			Response response = SSLHelper.getConnection(url).userAgent("Mozilla/5.0").timeout(100000).ignoreHttpErrors(true).execute();		
 			return response.statusCode();
@@ -20,7 +18,7 @@ public class JsoupConnection {
 		}		
 	}
 	
-	public Document getHtmlDocument(String url) {
+	public static Document getHtmlDocument(String url) {
 		try {
 			return SSLHelper.getConnection(url).userAgent("Mozilla/5.0").timeout(100000).get();
 	    } catch (Exception ex) {

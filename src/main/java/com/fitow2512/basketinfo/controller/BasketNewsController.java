@@ -1,6 +1,5 @@
 package com.fitow2512.basketinfo.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,14 +15,11 @@ import com.fitow2512.basketinfo.services.dtos.Articles;
 @RequestMapping("/news")
 public class BasketNewsController {
 
-	@Autowired
-	private BasketDataService basketDataService;
-    
     @GetMapping("/articles")
     @ResponseStatus(value = HttpStatus.OK)
     public ResponseEntity<Articles> getArticles() {
         return new ResponseEntity<>(
-        		basketDataService.getNews(), 
+        		BasketDataService.getNews(), 
         		HttpStatus.OK); 
     }
     
@@ -31,7 +27,7 @@ public class BasketNewsController {
     @ResponseStatus(value = HttpStatus.OK)
     public ResponseEntity<Articles> getTransfers() {
         return new ResponseEntity<>(
-        		basketDataService.getTransfers(), 
+        		BasketDataService.getTransfers(), 
         		HttpStatus.OK); 
     }
 }

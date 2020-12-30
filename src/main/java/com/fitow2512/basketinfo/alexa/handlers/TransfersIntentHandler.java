@@ -12,19 +12,19 @@ import com.fitow2512.basketinfo.services.BasketDataService;
 import com.fitow2512.basketinfo.services.dtos.Articles;
 
 
-public class NewsIntentHandler implements RequestHandler {
+public class TransfersIntentHandler implements RequestHandler {
 
     @Override
     public boolean canHandle(HandlerInput input) {
-        return input.matches(intentName("NewsIntent"));
+        return input.matches(intentName("TransfersIntent"));
     }
 
     @Override
     public Optional<Response> handle(HandlerInput input) {
-    	String titleText = LocalizationManager.getInstance().getMessage("NEWS_TITLE");
-    	String introText = LocalizationManager.getInstance().getMessage("NEWS_INTRO");
+    	String titleText = LocalizationManager.getInstance().getMessage("TRANSFERS_TITLE");
+    	String introText = LocalizationManager.getInstance().getMessage("TRANSFERS_INTRO");
     	
-    	Articles articles = BasketDataService.getNews();
+    	Articles articles = BasketDataService.getTransfers();
     	StringBuilder speechTextBuilder = new StringBuilder()
     			.append(introText);
     	

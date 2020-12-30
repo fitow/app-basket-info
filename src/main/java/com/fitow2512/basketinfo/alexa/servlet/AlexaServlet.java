@@ -22,6 +22,7 @@ public class AlexaServlet extends SkillServlet {
                         new CancelandStopIntentHandler(),
                         new HelloWorldIntentHandler(),
                         new NewsIntentHandler(),
+                        new TransfersIntentHandler(),
                         new HelpIntentHandler(),
                         new LaunchRequestHandler(),
                         new SessionEndedRequestHandler(),
