@@ -7,7 +7,7 @@
     <groupId>com.fitow2512</groupId>
     <artifactId>app-basket-info</artifactId>
     <packaging>jar</packaging>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
 
 	<name>app-basket-info</name>
 	<description>Basket Info App for Spring Boot</description>
