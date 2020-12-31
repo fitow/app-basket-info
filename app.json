@@ -1,6 +1,6 @@
 {
   "name": "App Basket Info",
   "description": "A Spring Boot Basket Info Services",
-  "repository": "https://github.com/callicoder/spring-boot-heroku-deployment-example",
+  "repository": "https://github.com/fitow/app-basket-info.git",
   "keywords": ["Spring Boot", "Heroku", "Deployment"]
 }
