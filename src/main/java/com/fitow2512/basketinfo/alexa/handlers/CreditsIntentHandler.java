@@ -18,8 +18,8 @@ public class CreditsIntentHandler implements RequestHandler {
 
     @Override
     public Optional<Response> handle(HandlerInput input) {
-    	String titleText = LocalizationManager.getInstance().getMessage("HELLO_TITLE");
-        String speechText = LocalizationManager.getInstance().getMessage("HELLO_MSG");
+    	String titleText = LocalizationManager.getInstance().getMessage("CREDITS_TITLE");
+        String speechText = LocalizationManager.getInstance().getMessage("CREDITS_MSG");
         return input.getResponseBuilder()
                 .withSpeech(speechText)
                 .withSimpleCard(titleText, speechText)
