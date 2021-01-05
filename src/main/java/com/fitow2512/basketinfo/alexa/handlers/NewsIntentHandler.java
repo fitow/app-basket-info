@@ -41,7 +41,7 @@ public class NewsIntentHandler implements RequestHandler {
         			.append(introText)
         			.append("\n \n");
         	
-        	List<Article> listArticles = articles.getArticles().subList(0, 4);
+        	List<Article> listArticles = articles.getArticles().subList(0, 5);
         	for(int i=0; i<listArticles.size(); i++) {
         		
         		int item = i+1;
