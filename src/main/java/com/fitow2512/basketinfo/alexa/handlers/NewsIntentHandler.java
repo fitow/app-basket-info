@@ -31,7 +31,7 @@ public class NewsIntentHandler implements RequestHandler {
     	
     	StringBuilder textBuilder = new StringBuilder()
     			.append(introText)
-    			.append("\n\n");
+    			.append("\n \n");
     	
     	int item = 1;
     	while (item < 6) {
@@ -54,7 +54,7 @@ public class NewsIntentHandler implements RequestHandler {
 		}
 
     	textBuilder
-    		.append("\n\n")	
+    		.append("\n \n")	
     		.append(sourceText);
 	
     	
