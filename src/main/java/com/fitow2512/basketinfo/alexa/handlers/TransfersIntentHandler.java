@@ -8,7 +8,7 @@ import com.amazon.ask.dispatcher.request.handler.HandlerInput;
 import com.amazon.ask.dispatcher.request.handler.RequestHandler;
 import com.amazon.ask.model.Response;
 import com.fitow2512.basketinfo.alexa.localization.LocalizationManager;
-import com.fitow2512.basketinfo.services.BasketDataService;
+import com.fitow2512.basketinfo.services.PiratasBasketDataService;
 import com.fitow2512.basketinfo.services.dtos.Articles;
 
 
@@ -25,7 +25,7 @@ public class TransfersIntentHandler implements RequestHandler {
     	String introText = LocalizationManager.getInstance().getMessage("TRANSFERS_INTRO");
     	String sourceText = LocalizationManager.getInstance().getMessage("SOURCE_PIRATAS_MSG");
     	
-    	Articles articles = BasketDataService.getTransfers();
+    	Articles articles = PiratasBasketDataService.getTransfers();
     	StringBuilder speechTextBuilder = new StringBuilder()
     			.append(introText);
     	

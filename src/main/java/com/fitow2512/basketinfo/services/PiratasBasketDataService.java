@@ -19,7 +19,7 @@ import com.fitow2512.basketinfo.services.utils.JsoupConnection;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class BasketDataService {
+public class PiratasBasketDataService {
 		
 	
 	private static final String URL_PIRATAS_BASKET = "https://piratasdelbasket.net/";	

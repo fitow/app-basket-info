@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fitow2512.basketinfo.services.BasketDataService;
+import com.fitow2512.basketinfo.services.PiratasBasketDataService;
 import com.fitow2512.basketinfo.services.dtos.Articles;
 
 
@@ -19,7 +19,7 @@ public class BasketNewsController {
     @ResponseStatus(value = HttpStatus.OK)
     public ResponseEntity<Articles> getArticles() {
         return new ResponseEntity<>(
-        		BasketDataService.getNews(), 
+        		PiratasBasketDataService.getNews(), 
         		HttpStatus.OK); 
     }
     
@@ -27,7 +27,7 @@ public class BasketNewsController {
     @ResponseStatus(value = HttpStatus.OK)
     public ResponseEntity<Articles> getTransfers() {
         return new ResponseEntity<>(
-        		BasketDataService.getTransfers(), 
+        		PiratasBasketDataService.getTransfers(), 
         		HttpStatus.OK); 
     }
 }
