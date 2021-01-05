@@ -21,45 +21,23 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class PiratasBasketDataService {
 		
-	
 	private static final String URL_PIRATAS_BASKET = "https://piratasdelbasket.net/";	
 	private static final String URL_PIRATAS_BASKET_TRANSFERS = "https://piratasdelbasket.net/category/rumores-fichajes/";
 
-
 	public static Articles getNews() {
-
-		List<Article> listArticles = new ArrayList<Article>();
-    	int statusConnectionCode = JsoupConnection.getStatusConnectionCode(URL_PIRATAS_BASKET);
-        if (statusConnectionCode == 200) {
-            Document document = JsoupConnection.getHtmlDocument(URL_PIRATAS_BASKET);
-            if(document!=null) {
-            	Elements elements = document.getElementsByTag("article");
-            	if(elements.size()>0) {
-            		int item = 0;
-            		for(Element element : elements) {
-            			Article article = getArticle(element, item);
-            			if(article!=null) {
-            				listArticles.add(article);	
-            			}
-            			item++;
-            		}
-            	}	
-            }
-        }
-        
-		return Articles.builder()
-        		.timeStamp(getTimeStamp())
-        		.numArticles(listArticles.size())
-        		.articles(listArticles)
-        		.build();
+		return getArticles(URL_PIRATAS_BASKET);
 	}
 	
 	public static Articles getTransfers() {
+		return getArticles(URL_PIRATAS_BASKET_TRANSFERS);
+	}
+	
+	private static Articles getArticles(String url) {
 
 		List<Article> listArticles = new ArrayList<Article>();
-    	int statusConnectionCode = JsoupConnection.getStatusConnectionCode(URL_PIRATAS_BASKET_TRANSFERS);
+    	int statusConnectionCode = JsoupConnection.getStatusConnectionCode(url);
         if (statusConnectionCode == 200) {
-            Document document = JsoupConnection.getHtmlDocument(URL_PIRATAS_BASKET_TRANSFERS);
+            Document document = JsoupConnection.getHtmlDocument(url);
             if(document!=null) {
             	Elements elements = document.getElementsByTag("article");
             	if(elements.size()>0) {
