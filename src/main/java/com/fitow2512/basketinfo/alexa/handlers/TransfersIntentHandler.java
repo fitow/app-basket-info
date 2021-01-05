@@ -54,7 +54,7 @@ public class TransfersIntentHandler implements RequestHandler {
 		}
 
     	textBuilder
-			.append("\n")	
+			.append("\n\n")	
 			.append(sourceText);
     	
         return input.getResponseBuilder()

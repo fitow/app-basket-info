@@ -54,7 +54,7 @@ public class NewsIntentHandler implements RequestHandler {
 		}
 
     	textBuilder
-    		.append("\n")	
+    		.append("\n\n")	
     		.append(sourceText);
 	
     	
