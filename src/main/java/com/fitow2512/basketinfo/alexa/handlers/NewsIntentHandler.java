@@ -23,6 +23,7 @@ public class NewsIntentHandler implements RequestHandler {
     public Optional<Response> handle(HandlerInput input) {
     	String titleText = LocalizationManager.getInstance().getMessage("NEWS_TITLE");
     	String introText = LocalizationManager.getInstance().getMessage("NEWS_INTRO");
+    	String sourceText = LocalizationManager.getInstance().getMessage("SOURCE_PIRATAS_MSG");
     	
     	Articles articles = BasketDataService.getNews();
     	StringBuilder speechTextBuilder = new StringBuilder()
@@ -52,6 +53,11 @@ public class NewsIntentHandler implements RequestHandler {
     		item++;
 		}
 
+    	textBuilder
+    		.append("\n")	
+    		.append(sourceText);
+	
+    	
         return input.getResponseBuilder()
                 .withSpeech(speechTextBuilder.toString())
                 .withSimpleCard(titleText, textBuilder.toString())
