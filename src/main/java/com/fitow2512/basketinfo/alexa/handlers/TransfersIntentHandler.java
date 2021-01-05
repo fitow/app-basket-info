@@ -41,7 +41,7 @@ public class TransfersIntentHandler implements RequestHandler {
         			.append(introText)
         			.append("\n \n");
         	
-        	List<Article> listArticles = articles.getArticles();
+        	List<Article> listArticles = articles.getArticles().subList(0, 4);
         	for(int i=0; i<listArticles.size(); i++) {
         		
         		int item = i+1;
