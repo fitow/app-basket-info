@@ -1,8 +1,6 @@
 package com.fitow2512.basketinfo.services;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -15,6 +13,7 @@ import org.jsoup.select.Elements;
 import com.fitow2512.basketinfo.services.dtos.Article;
 import com.fitow2512.basketinfo.services.dtos.Articles;
 import com.fitow2512.basketinfo.services.utils.JsoupConnection;
+import com.fitow2512.basketinfo.services.utils.ZonedDateTimeUtils;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -54,7 +53,7 @@ public class PiratasBasketDataService {
         }
         
 		return Articles.builder()
-        		.timeStamp(getTimeStamp())
+        		.timeStamp(ZonedDateTimeUtils.getTimeStamp())
         		.numArticles(listArticles.size())
         		.articles(listArticles)
         		.build();
@@ -90,19 +89,15 @@ public class PiratasBasketDataService {
  			return null;
 		}
 	}
-
-	private static ZonedDateTime getTimeStamp() {
-		return ZonedDateTime.of(LocalDateTime.now(), ZoneId.of("Europe/Madrid"));		
-	}
 	
 	private static ZonedDateTime getArticleDate(String date) {
 		try {
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM, yyyy");
 			LocalDate ldDate = LocalDate.parse(date, formatter);
-			return ldDate.atStartOfDay(ZoneId.of("Europe/Madrid"));
+			return ldDate.atStartOfDay(ZonedDateTimeUtils.getZoneId());
 		} catch (Exception ex) {
 			log.error("Exception when parser article date");
-			return getTimeStamp();
+			return ZonedDateTimeUtils.getTimeStamp();
 		}		
 	}
 }

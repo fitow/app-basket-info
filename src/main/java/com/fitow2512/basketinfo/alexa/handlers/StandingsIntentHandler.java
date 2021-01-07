@@ -9,17 +9,17 @@ import java.util.Optional;
 
 import static com.amazon.ask.request.Predicates.intentName;
 
-public class TablesIntentHandler implements RequestHandler {
+public class StandingsIntentHandler implements RequestHandler {
 
     @Override
     public boolean canHandle(HandlerInput input) {
-        return input.matches(intentName("TablesIntent"));
+        return input.matches(intentName("StandingsIntent"));
     }
 
     @Override
     public Optional<Response> handle(HandlerInput input) {
-    	String titleText = LocalizationManager.getInstance().getMessage("TABLES_TITLE");
-        String speechText = LocalizationManager.getInstance().getMessage("TABLES_INTRO");
+    	String titleText = LocalizationManager.getInstance().getMessage("STANDINGS_TITLE");
+        String speechText = LocalizationManager.getInstance().getMessage("STANDINGS_INTRO");
         return input.getResponseBuilder()
                 .withSpeech(speechText)
                 .withSimpleCard(titleText, speechText)

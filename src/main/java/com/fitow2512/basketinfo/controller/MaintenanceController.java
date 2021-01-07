@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fitow2512.basketinfo.services.AsDataService;
 import com.fitow2512.basketinfo.services.PiratasBasketDataService;
 import com.fitow2512.basketinfo.services.dtos.Articles;
+import com.fitow2512.basketinfo.services.dtos.Standings;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -44,17 +45,17 @@ public class MaintenanceController {
     
     @GetMapping("/acb")
     @ResponseStatus(value = HttpStatus.OK)
-    public ResponseEntity<Articles> getAcb() {
+    public ResponseEntity<Standings> getAcb() {
         return new ResponseEntity<>(
-        		AsDataService.getAcbTable(), 
+        		AsDataService.getAcbStandings(), 
         		HttpStatus.OK); 
     }
     
     @GetMapping("/euroleague")
     @ResponseStatus(value = HttpStatus.OK)
-    public ResponseEntity<Articles> getEuroleague() {
+    public ResponseEntity<Standings> getEuroleague() {
         return new ResponseEntity<>(
-        		AsDataService.getAcbTable(), 
+        		AsDataService.getEuroleagueStandings(), 
         		HttpStatus.OK); 
     }
 }
