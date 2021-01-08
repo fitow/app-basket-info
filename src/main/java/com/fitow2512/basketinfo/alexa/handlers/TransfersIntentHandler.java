@@ -26,9 +26,9 @@ public class TransfersIntentHandler implements RequestHandler {
     @Override
     public Optional<Response> handle(HandlerInput input) {
     	
-    	String titleText = LocalizationManager.getInstance().getMessage("TRANSFERS_TITLE");
-    	
     	Articles articles = PiratasBasketDataService.getTransfers();
+    	
+    	String titleText = LocalizationManager.getInstance().getMessage("TRANSFERS_TITLE");
     	
     	if(articles!=null && !CollectionUtils.isEmpty(articles.getArticles())) {
     		

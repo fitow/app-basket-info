@@ -26,9 +26,9 @@ public class NewsIntentHandler implements RequestHandler {
     @Override
     public Optional<Response> handle(HandlerInput input) {
     	
-    	String titleText = LocalizationManager.getInstance().getMessage("NEWS_TITLE");
-    	
     	Articles articles = PiratasBasketDataService.getNews();
+    	
+    	String titleText = LocalizationManager.getInstance().getMessage("NEWS_TITLE");
     	
     	if(articles!=null && !CollectionUtils.isEmpty(articles.getArticles())) {
     		
