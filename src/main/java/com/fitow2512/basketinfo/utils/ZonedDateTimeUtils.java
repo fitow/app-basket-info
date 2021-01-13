@@ -1,4 +1,4 @@
-package com.fitow2512.basketinfo.services.utils;
+package com.fitow2512.basketinfo.utils;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;

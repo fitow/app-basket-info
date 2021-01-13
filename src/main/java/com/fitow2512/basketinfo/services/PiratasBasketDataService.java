@@ -13,7 +13,7 @@ import org.jsoup.select.Elements;
 import com.fitow2512.basketinfo.services.dtos.Article;
 import com.fitow2512.basketinfo.services.dtos.Articles;
 import com.fitow2512.basketinfo.services.utils.JsoupConnection;
-import com.fitow2512.basketinfo.services.utils.ZonedDateTimeUtils;
+import com.fitow2512.basketinfo.utils.ZonedDateTimeUtils;
 
 import lombok.extern.slf4j.Slf4j;
 

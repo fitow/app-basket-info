@@ -4,6 +4,7 @@ import static com.amazon.ask.request.Predicates.intentName;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.util.CollectionUtils;
 
@@ -16,6 +17,7 @@ import com.fitow2512.basketinfo.alexa.localization.LocalizationManager;
 import com.fitow2512.basketinfo.services.AsDataService;
 import com.fitow2512.basketinfo.services.dtos.Standings;
 import com.fitow2512.basketinfo.services.dtos.Team;
+import com.fitow2512.basketinfo.utils.StringsUtils;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -39,62 +41,92 @@ public class StandingsIntentHandler implements RequestHandler {
     		standings = AsDataService.getAcbStandings();
     	}
 
-        String standingId = standings.getId();
-    	String titleText = LocalizationManager.getInstance().getMessage("STANDINGS_TITLE", standingId);
-        String introText = LocalizationManager.getInstance().getMessage("STANDINGS_INTRO", standingId);
-        
         StringBuilder speechTextBuilder = new StringBuilder()
-    			.append(introText);
+        		.append(getSpeechText(standings, isEuroleague));
     	
     	StringBuilder textBuilder = new StringBuilder()
-    			.append(introText)
-    			.append("\n \n");
+    			.append(LocalizationManager.getInstance().getMessage("STANDINGS_INTRO", standings.getId()))
+    			.append("\n \n")
+    			.append(getTextTable(standings));
+
+        return input.getResponseBuilder()
+                .withSpeech(speechTextBuilder.toString())
+                .withSimpleCard(LocalizationManager.getInstance().getMessage("STANDINGS_TITLE", standings.getId()), textBuilder.toString())
+                .build();
+    }
+    
+    private String getSpeechText(Standings standings, boolean isEuroleague) {
     	
+    	StringBuilder speechTextBuilder = new StringBuilder();
+    	
+    	
+    	Team firstTeam = standings.getTeams().get(0);
+		speechTextBuilder.append(LocalizationManager.getInstance().getMessage("STANDINGS_FIRST_TEXT", 
+				standings.getId(), 
+				firstTeam.getName(), 
+				firstTeam.getWins(), 
+				firstTeam.getLosses()));
+    	
+    	
+    	Team secondTeam = standings.getTeams().get(1);
+    	speechTextBuilder.append(LocalizationManager.getInstance().getMessage("STANDINGS_SECOND_TEXT", 
+    			secondTeam.getName(), 
+    			secondTeam.getWins(), 
+    			secondTeam.getLosses()));
+    	
+    	List<String> listPlayoffTeams = standings.getTeams().subList(2, 8).stream()
+    		    .map(Team::getName)
+    		    .collect(Collectors.toList());
+    	String textPlayoffTeams = StringsUtils.joinList(listPlayoffTeams, ",", "y");
+    	speechTextBuilder.append(LocalizationManager.getInstance().getMessage("STANDINGS_PLAYOFF_TEXT", 
+    			textPlayoffTeams));
+    	
+    	
+    	if(isEuroleague) {
+    		
+    		List<String> listRestEuroleagueTeams = standings.getTeams().subList(8, standings.getTeams().size()-1).stream()
+        		    .map(Team::getName)
+        		    .collect(Collectors.toList());
+        	String textRestEuroleagueTeams = StringsUtils.joinList(listRestEuroleagueTeams, ",", "y");
+        	String textLastTeam = standings.getTeams().get(standings.getTeams().size()-1).getName();
+        	speechTextBuilder.append(LocalizationManager.getInstance().getMessage("STANDINGS_REST_EUROLEAGUE_TEXT", 
+        			textRestEuroleagueTeams,
+        			textLastTeam));
+    	}else {
+    		
+    		List<String> listRestAcbTeams = standings.getTeams().subList(8, standings.getTeams().size()-2).stream()
+        		    .map(Team::getName)
+        		    .collect(Collectors.toList());
+        	String textRestAcbTeams = StringsUtils.joinList(listRestAcbTeams, ",", "y");
+        	String textSecondLastTeam = standings.getTeams().get(standings.getTeams().size()-2).getName();
+        	String textLastTeam = standings.getTeams().get(standings.getTeams().size()-1).getName();
+        	speechTextBuilder.append(LocalizationManager.getInstance().getMessage("STANDINGS_REST_ACB_TEXT", 
+        			textRestAcbTeams,
+        			textSecondLastTeam,
+        			textLastTeam));
+    	}
+    	
+    	return speechTextBuilder.toString();
+    }
+    
+    private String getTextTable(Standings standings) {
+    	
+    	StringBuilder textBuilder = new StringBuilder();
+    			
     	for(Team team : standings.getTeams()) {
-    		
-    		String name = team.getName();
-    		Integer position = team.getPosition();
-    		Integer wins = team.getWins();
-    		Integer losses = team.getLosses();
-    		
-    		if(position==1) {
-    			String playoffText = LocalizationManager.getInstance().getMessage("STANDINGS_PLAYOFF_TEXT");
-        		speechTextBuilder
-    				.append(playoffText);
-    		}
-    		
-    		if(position==9) {
-    			String restText = LocalizationManager.getInstance().getMessage("STANDINGS_REST_TEXT");
-        		speechTextBuilder
-    				.append(restText);
-    		}
-    		
-    		if(!isEuroleague && position==standings.getTeams().size()-1) {
-    			String droppedText = LocalizationManager.getInstance().getMessage("STANDINGS_DROPPED_TEXT");
-        		speechTextBuilder
-    				.append(droppedText);
-    		}
-    		
-    		String teamText = LocalizationManager.getInstance().getMessage("STANDINGS_TEAM_TEXT", position, name, wins, losses);
-    		speechTextBuilder
-				.append(teamText);
-    		
     		textBuilder
-				.append(position)
-				.append(") ")
-				.append(name)
+				.append(team.getPosition())
+				.append(". ")
+				.append(team.getName())
 				.append(" (")
-				.append(wins)
+				.append(team.getWins())
 				.append(" - ")
-				.append(losses)
+				.append(team.getLosses())
 				.append(") \n");
     		
     	}
-         
-        return input.getResponseBuilder()
-                .withSpeech(speechTextBuilder.toString())
-                .withSimpleCard(titleText, textBuilder.toString())
-                .build();
+    	
+    	return textBuilder.toString();
     }
     
     private boolean isEuroleague(HandlerInput input) {
